@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <div class="info-text">
+        <h2>Welcome {{ user.get("name") }}!</h2>
+    </div>
+
+    <div class="image-container">
+        <img src="https://github.com/Azure-Samples/ms-identity-python-webapp-django/raw/main/static/topology.png" alt="Topology">
+    </div>
+
+    <nav class="nav-links">
+        <ul>
+        {% if api_endpoint %}
+            <li><a href='/call_api'>Call an API</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('identity.logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <hr>
+    <footer>{{ title }}</footer>
+</body>
+</html>

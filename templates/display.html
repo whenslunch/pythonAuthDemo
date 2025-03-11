@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Identity Python Web App: API</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <a href="javascript:window.history.go(-1)" class="back-link">← Back</a>
+    <h1>{{title}}</h1>
+    <div class="info-text">
+        <p>This is displaying the response from the GraphAPI using the credentials that logged onto the app. It will display what it has permission to do so based on the API permissions in the app registration settings.</p>
+    </div>
+    <div class="json-container">
+        <pre>{{ result |tojson(indent=4) }}</pre>
+    </div>
+</body>
+</html>
