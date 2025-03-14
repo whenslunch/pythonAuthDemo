@@ -28,5 +28,10 @@
       "name": "SCOPE",
       "value": "",
       "slotSetting": false
+    },
+    {
+      "name": "AUTH_ENABLED",
+      "value": "",
+      "slotSetting": false
     }
   ]

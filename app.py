@@ -1,12 +1,18 @@
 import os
 import requests
-from flask import Flask, render_template
+from flask import Flask, render_template, session
 from identity.flask import Auth
 import app_config
+from utils import optional_auth
 
 app = Flask(__name__)
 app.config.from_object(app_config)
 
+# Enable session handling
+app.secret_key = app.config.get('SECRET_KEY')
+app.config['SESSION_TYPE'] = app.config.get('SESSION_TYPE')
+
+# Create auth instance
 auth = Auth(
     app,
     authority=app.config["AUTHORITY"],
@@ -15,20 +21,23 @@ auth = Auth(
     redirect_uri=app.config["REDIRECT_URI"]
 )
 
+# Add auth instance to app context
+app.auth_instance = auth
+
 @app.route("/")
-@auth.login_required
+@optional_auth
 def index(*, context):
     return render_template(
         'index.html',
         user=context['user'],
         title="Flask Web App Sample",
-        api_endpoint=os.getenv("ENDPOINT") # added this line
+        api_endpoint=os.getenv("ENDPOINT")
     )
 
 @app.route("/call_api")
-@auth.login_required(scopes=os.getenv("SCOPE", "").split())
+@optional_auth(scopes=os.getenv("SCOPE", "").split())
 def call_downstream_api(*, context):
-    api_result = requests.get(  # Use access token to call a web api
+    api_result = requests.get(
         os.getenv("ENDPOINT"),
         headers={'Authorization': 'Bearer ' + context['access_token']},
         timeout=30,

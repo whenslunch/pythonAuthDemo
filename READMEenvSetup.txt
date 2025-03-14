@@ -15,3 +15,6 @@ AUTHORITY="https://login.microsoftonline.com/<Enter_tenant_id>"
 REDIRECT_URI="<Enter_redirect_uri>"
 SCOPE=User.Read
 ENDPOINT=https://graph.microsoft.com/v1.0/me
+
+
+python -m flask run --debug --host=localhost --port=3000                                                              
