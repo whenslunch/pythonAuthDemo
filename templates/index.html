@@ -25,6 +25,24 @@
         </ul>
     </nav>
 
+    <button id="send-to-agent">Send message to local agent</button>
+    <script>
+    document.getElementById('send-to-agent').addEventListener('click', function() {
+        fetch('https://localhost:5555/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'launch_app' })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Message sent to local agent: ' + JSON.stringify(data));
+        })
+        .catch(error => {
+            alert('Failed to contact local agent: ' + error);
+        });
+    });
+    </script>
+
     <hr>
     <footer>{{ title }}</footer>
 </body>
